@@ -15,6 +15,12 @@ const MainPage = () => {
 
   // Barre de recherche avec filter
   const [searchMovie, setSearchMovie] = useState('');
+  const [searchFieldValue, setSearchFieldValue] = useState('');
+  // Lire la suite de la description
+  const [isReadMoreShown, setReadMoreShown] = useState(false);
+  const toggleBtn = () => {
+    setReadMoreShown((prevState) => !prevState);
+  };
 
   const allMovies = movies
     .filter((value) => {
@@ -50,7 +56,12 @@ const MainPage = () => {
                 {movie.release_date}
               </p>
               <p className='description'>
-                {movie.description} <span className='suite'>Suite...</span>
+                {isReadMoreShown
+                  ? movie.description
+                  : movie.description.substr(0, 180)}{' '}
+                <span className='suite' onClick={toggleBtn}>
+                  {isReadMoreShown ? ' Fermer' : ' Suite...'}
+                </span>
               </p>
             </div>
           </section>
@@ -63,20 +74,25 @@ const MainPage = () => {
       <>
         <h1>Ma super page de recherche</h1>
         {/* Barre de recherche */}
-        <form action='/' methode='get' className='Search-Bar'>
+        <div className='Search-Bar'>
           <input
             type='text'
             id='searchbar'
             className='searchbar'
             placeholder='Rechercher un titre, un réalisateur...'
             onChange={(e) => {
-              setSearchMovie(e.target.value);
+              setSearchFieldValue(e.target.value);
             }}
           />
-          <button className='search-button' type='submit'>
+          <button
+            className='search-button'
+            onClick={(e) => {
+              setSearchMovie(searchFieldValue);
+            }}
+          >
             <AiOutlineSearch /> OK
           </button>
-        </form>
+        </div>
         {/* Mes films */}
         <article className='Movie-Card'>{allMovies}</article>
       </>
