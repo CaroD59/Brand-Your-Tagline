@@ -16,6 +16,11 @@ const MainPage = () => {
   // Barre de recherche avec filter
   const [searchMovie, setSearchMovie] = useState('');
   const [searchFieldValue, setSearchFieldValue] = useState('');
+  // Lire la suite de la description
+  const [isReadMoreShown, setReadMoreShown] = useState(false);
+  const toggleBtn = () => {
+    setReadMoreShown((prevState) => !prevState);
+  };
 
   const allMovies = movies
     .filter((value) => {
@@ -51,7 +56,12 @@ const MainPage = () => {
                 {movie.release_date}
               </p>
               <p className='description'>
-                {movie.description} <span className='suite'>Suite...</span>
+                {isReadMoreShown
+                  ? movie.description
+                  : movie.description.substr(0, 180)}{' '}
+                <span className='suite' onClick={toggleBtn}>
+                  {isReadMoreShown ? ' Fermer' : ' Suite...'}
+                </span>
               </p>
             </div>
           </section>
