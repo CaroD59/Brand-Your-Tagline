@@ -20,6 +20,5 @@ export default function App() {
   );
 }
 
-
 // Pour le CSS j'ai décidé d'utiliser le styled-components
 // Je l'ai également imbriqué de manière à le structurer

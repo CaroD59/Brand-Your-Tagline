@@ -73,6 +73,7 @@ const MainPageStyles = styled.div`
           font-weight: bold;
           color: #841919;
           cursor: pointer;
+          text-decoration: underline;
         }
       }
       .icon {
